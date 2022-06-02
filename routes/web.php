@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\URLHandlerController;
+use App\Http\Controllers\URLShortenerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [URLShortenerController::class, 'create']);
+Route::post('/', [URLShortenerController::class, 'store'])->name('generate');
+
+Route::get('/{code}', [URLHandlerController::class, 'handle'])->name('visit');
